@@ -32,10 +32,13 @@ class extract_date(Resource):
     def get(self):
         # use parser and find the user's query
         args = parser.parse_args()
+        if(args['payload'] == None):
+            return {'message':'No image provided'}
         img_64 = args['payload'].encode()
         if(img_64 not in dates.keys()):
             return {'message': "Image not in database"}
         return {'date':dates[img_64]}
+    
     def post(self):
         args = parser.parse_args()
         img_64 = args['payload'].encode()
